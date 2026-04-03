@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bài 3</title>
+<style>
+body {text-align:center; font-family: Arial;}
+#time {
+  font-size:40px;
+}
+.red {
+  color:red;
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  50% {opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<h2>Đếm ngược</h2>
+<div id="time">10:00</div>
+
+<script>
+let time = 600;
+
+let interval = setInterval(()=>{
+ let m = Math.floor(time/60);
+ let s = time%60;
+
+ timeEl = document.getElementById("time");
+
+ timeEl.innerText = m + ":" + (s<10?"0":"") + s;
+
+ if(time <= 60){
+  timeEl.classList.add("red");
+ }
+
+ if(time <= 0){
+  clearInterval(interval);
+  alert("Hết thời gian!");
+ }
+
+ time--;
+},1000);
+</script>
+
+<p><b>Giải thích:</b> dùng setInterval cập nhật mỗi giây, clearInterval tránh lỗi bộ nhớ.</p>
+
+</body>
+</html>
