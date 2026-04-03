@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bài 2</title>
+<style>
+body {font-family: Arial; text-align:center;}
+form {
+  max-width:300px;
+  margin:auto;
+}
+input, button {
+  width:100%;
+  margin:5px 0;
+  padding:8px;
+}
+</style>
+</head>
+<body>
+
+<h2>Đăng ký</h2>
+
+<form id="f">
+<input id="name" placeholder="Tên">
+<input id="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Mật khẩu">
+<label><input type="checkbox" id="agree"> Đồng ý điều khoản</label>
+<button>Đăng ký</button>
+</form>
+
+<script>
+f.onsubmit = e=>{
+ e.preventDefault();
+
+ let email = email.value.trim();
+ let pass = pass.value;
+
+ let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+ if(!regex.test(email)) return alert("Email không hợp lệ");
+
+ if(pass.length<8) return alert("Mật khẩu phải >= 8 ký tự");
+
+ if(!agree.checked) return alert("Phải đồng ý điều khoản");
+
+ localStorage.setItem("user", JSON.stringify({email}));
+
+ alert("Đăng ký thành công");
+}
+</script>
+
+<p><b>Giải thích:</b> dùng regex kiểm tra email, preventDefault tránh reload, localStorage lưu dữ liệu.</p>
+
+</body>
+</html>
