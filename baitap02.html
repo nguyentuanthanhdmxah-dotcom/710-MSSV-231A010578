@@ -3,58 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <title>Bài 2</title>
+
 <style>
 body {font-family: Arial; text-align:center;}
+
 form {
   max-width:300px;
   margin:auto;
 }
+
 input, button {
   width:100%;
   margin:5px 0;
   padding:8px;
 }
-#msg {
-  margin-top:10px;
-  color: green;
-  font-weight: bold;
+
+.error {
+  color:red;
+  font-size:13px;
+}
+
+.success {
+  color:green;
+  font-size:13px;
+  font-weight:bold;
 }
 </style>
+
 </head>
 <body>
 
 <h2>Đăng ký</h2>
 
 <form id="f">
-<input id="name" placeholder="Tên">
-<input id="email" placeholder="Email">
-<input id="pass" type="password" placeholder="Mật khẩu">
-<label><input type="checkbox" id="agree"> Đồng ý điều khoản</label>
-<button>Đăng ký</button>
-</form>
 
-<div id="msg"></div>
+<input id="name" placeholder="Tên">
+<div id="errName" class="error"></div>
+
+<input id="email" placeholder="Email">
+<div id="errEmail" class="error"></div>
+
+<input id="pass" type="password" placeholder="Mật khẩu">
+<div id="errPass" class="error"></div>
+
+<label>
+<input type="checkbox" id="agree"> Đồng ý điều khoản
+</label>
+<div id="errAgree" class="error"></div>
+
+<div id="success" class="success"></div>
+
+<button>Đăng ký</button>
+
+</form>
 
 <script>
 f.onsubmit = e=>{
  e.preventDefault();
 
- let emailVal = email.value.trim();
- let passVal = pass.value;
+ // reset
+ errName.innerText="";
+ errEmail.innerText="";
+ errPass.innerText="";
+ errAgree.innerText="";
+ success.innerText="";
 
+ let ok = true;
+
+ if(name.value.trim() === ""){
+   errName.innerText = "Vui lòng nhập tên";
+   ok = false;
+ }
+
+ let emailVal = email.value.trim();
  let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
- if(!regex.test(emailVal)) return alert("Email không hợp lệ");
+ if(!regex.test(emailVal)){
+   errEmail.innerText = "Email không hợp lệ";
+   ok = false;
+ }
 
- if(passVal.length < 8) return alert("Mật khẩu phải >= 8 ký tự");
+ let passVal = pass.value;
 
- if(!agree.checked) return alert("Phải đồng ý điều khoản");
+ if(passVal.length < 8){
+   errPass.innerText = "Mật khẩu >= 8 ký tự";
+   ok = false;
+ }
 
- // lưu dữ liệu
+ if(!agree.checked){
+   errAgree.innerText = "Bạn phải đồng ý";
+   ok = false;
+ }
+
+ if(!ok) return;
+
  localStorage.setItem("user", JSON.stringify({email: emailVal}));
 
- // hiện thông báo trên web
- document.getElementById("msg").innerText = "Đăng ký thành công!";
+ success.innerText = "✔ Đăng ký thành công!";
 
  // reset form
  f.reset();
