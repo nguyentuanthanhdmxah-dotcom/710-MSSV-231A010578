@@ -3,50 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <title>Bài 3</title>
+
 <style>
-body {text-align:center; font-family: Arial;}
+body {
+  font-family: Arial;
+  text-align:center;
+  background:#f4f4f4;
+}
+
+.box {
+  background:white;
+  width:300px;
+  margin:100px auto;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 0 15px #ccc;
+}
+
 #time {
   font-size:40px;
+  margin:20px 0;
 }
-.red {
+
+/* cảnh báo */
+.danger {
   color:red;
-  animation: blink 1s infinite;
+  animation:blink 1s infinite;
 }
+
 @keyframes blink {
-  50% {opacity:0;}
+  0% {opacity:1;}
+  50% {opacity:0.3;}
+  100% {opacity:1;}
+}
+
+button {
+  padding:10px 15px;
+  margin:5px;
+  border:none;
+  border-radius:8px;
+  background:#3498db;
+  color:white;
+  cursor:pointer;
+}
+
+button:hover {
+  background:#2ecc71;
+}
+
+/* popup */
+#popup {
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 0 10px gray;
 }
 </style>
+
 </head>
 <body>
 
-<h2>Đếm ngược</h2>
-<div id="time">10:00</div>
+<div class="box">
+  <h2>⏳ Countdown 10 phút</h2>
+  <div id="time">10:00</div>
+
+  <button onclick="start()">Start</button>
+  <button onclick="reset()">Reset</button>
+</div>
+
+<div id="popup">
+  <h3>⏰ Hết thời gian!</h3>
+  <button onclick="closePopup()">OK</button>
+</div>
 
 <script>
-let time = 600;
+let total = 600; // 10 phút
+let interval;
 
-let interval = setInterval(()=>{
- let m = Math.floor(time/60);
- let s = time%60;
+function update(){
+ let m = Math.floor(total / 60);
+ let s = total % 60;
 
- timeEl = document.getElementById("time");
+ time.innerText =
+   (m<10?"0":"") + m + ":" + (s<10?"0":"") + s;
 
- timeEl.innerText = m + ":" + (s<10?"0":"") + s;
-
- if(time <= 60){
-  timeEl.classList.add("red");
+ // cảnh báo dưới 1 phút
+ if(total <= 60){
+   time.classList.add("danger");
  }
 
- if(time <= 0){
-  clearInterval(interval);
-  alert("Hết thời gian!");
+ if(total <= 0){
+   clearInterval(interval);
+   document.getElementById("popup").style.display="block";
  }
+}
 
- time--;
-},1000);
+function start(){
+ if(interval) return; // tránh chạy nhiều lần
+
+ interval = setInterval(()=>{
+   total--;
+   update();
+ },1000);
+}
+
+function reset(){
+ clearInterval(interval);
+ interval = null;
+ total = 600;
+ time.classList.remove("danger");
+ update();
+}
+
+function closePopup(){
+ document.getElementById("popup").style.display="none";
+}
+
+update();
 </script>
-
-<p><b>Giải thích:</b> dùng setInterval cập nhật mỗi giây, clearInterval tránh lỗi bộ nhớ.</p>
 
 </body>
 </html>
