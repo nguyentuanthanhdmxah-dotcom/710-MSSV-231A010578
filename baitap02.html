@@ -35,7 +35,7 @@ input, button {
 
 <h2>Đăng ký</h2>
 
-<form id="f">
+<form id="form">
 
 <input id="name" placeholder="Tên">
 <div id="errName" class="error"></div>
@@ -53,57 +53,63 @@ input, button {
 
 <div id="success" class="success"></div>
 
-<button>Đăng ký</button>
+<button type="submit">Đăng ký</button>
 
 </form>
 
 <script>
-f.onsubmit = e=>{
- e.preventDefault();
+const form = document.getElementById("form");
 
- // reset
- errName.innerText="";
- errEmail.innerText="";
- errPass.innerText="";
- errAgree.innerText="";
- success.innerText="";
+form.addEventListener("submit", function(e){
+  e.preventDefault();
 
- let ok = true;
+  // reset lỗi
+  document.getElementById("errName").innerText = "";
+  document.getElementById("errEmail").innerText = "";
+  document.getElementById("errPass").innerText = "";
+  document.getElementById("errAgree").innerText = "";
+  document.getElementById("success").innerText = "";
 
- if(name.value.trim() === ""){
-   errName.innerText = "Vui lòng nhập tên";
-   ok = false;
- }
+  let ok = true;
 
- let emailVal = email.value.trim();
- let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let name = document.getElementById("name").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let pass = document.getElementById("pass").value;
+  let agree = document.getElementById("agree").checked;
 
- if(!regex.test(emailVal)){
-   errEmail.innerText = "Email không hợp lệ";
-   ok = false;
- }
+  // validate
+  if(name === ""){
+    document.getElementById("errName").innerText = "Vui lòng nhập tên";
+    ok = false;
+  }
 
- let passVal = pass.value;
+  let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!regex.test(email)){
+    document.getElementById("errEmail").innerText = "Email không hợp lệ";
+    ok = false;
+  }
 
- if(passVal.length < 8){
-   errPass.innerText = "Mật khẩu >= 8 ký tự";
-   ok = false;
- }
+  if(pass.length < 8){
+    document.getElementById("errPass").innerText = "Mật khẩu >= 8 ký tự";
+    ok = false;
+  }
 
- if(!agree.checked){
-   errAgree.innerText = "Bạn phải đồng ý";
-   ok = false;
- }
+  if(!agree){
+    document.getElementById("errAgree").innerText = "Bạn phải đồng ý điều khoản";
+    ok = false;
+  }
 
- if(!ok) return;
+  if(!ok) return;
 
- localStorage.setItem("user", JSON.stringify({email: emailVal}));
+  // lưu localStorage
+  localStorage.setItem("user", JSON.stringify({name, email}));
 
- success.innerText = "✔ Đăng ký thành công!";
+  // thông báo thành công
+  document.getElementById("success").innerText = "✔ Đăng ký thành công!";
 
- // reset form
- f.reset();
-}
+  // reset form
+  form.reset();
+});
 </script>
 
 </body>
