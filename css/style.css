@@ -1,0 +1,19 @@
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #f4f4f4;
+}
+
+a {
+  display: block;
+  margin: 10px;
+  padding: 10px;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+a:hover {
+  background: #2ecc71;
+}
