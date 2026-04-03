@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bài 1</title>
+<style>
+body {font-family: Arial; text-align:center;}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+  gap: 10px;
+}
+.item {
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:10px;
+}
+</style>
+</head>
+<body>
+
+<h2>Danh sách sản phẩm</h2>
+<input id="search" placeholder="Tìm sản phẩm...">
+
+<div id="list" class="grid"></div>
+
+<script>
+const products = [
+ "Iphone","Samsung","Xiaomi","Oppo","Nokia"
+];
+
+function render(arr){
+ list.innerHTML = arr.map(p=>`<div class="item">${p}</div>`).join("");
+}
+
+render(products);
+
+search.oninput = function(){
+ let val = this.value.toLowerCase().trim();
+
+ let result = products.filter(p =>
+   p.toLowerCase().includes(val)
+ );
+
+ list.innerHTML = result.length
+   ? result.map(p=>`<div class="item">${p}</div>`).join("")
+   : "Không tìm thấy";
+}
+</script>
+
+<p><b>Giải thích:</b> dùng filter để tìm kiếm, toLowerCase tránh phân biệt hoa thường, trim tránh lỗi nhập.</p>
+
+</body>
+</html>
