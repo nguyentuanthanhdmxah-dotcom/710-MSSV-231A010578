@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Lý thuyết</title>
+
+<style>
+body {
+    font-family: Arial;
+    line-height: 1.6;
+    padding: 20px;
+    background: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+h2 {
+    color: #2980b9;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.box {
+    background: white;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+}
+
+code {
+    background: #eee;
+    padding: 5px;
+    display: block;
+    margin: 10px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+</style>
+
+</head>
+<body>
+
+<h1>PHẦN LÝ THUYẾT</h1>
+
+<div class="box">
+<h2>Câu 1: position absolute và relative</h2>
+
+<p><b>relative:</b> định vị theo vị trí ban đầu, vẫn chiếm chỗ</p>
+<p><b>absolute:</b> định vị theo phần tử cha, không chiếm chỗ</p>
+
+<p><b>Ví dụ:</b></p>
+<code>
+.container { position: relative; }
+.box { position: absolute; top:0; right:0; }
+</code>
+
+<p><b>Ứng dụng:</b> đặt icon, popup, layout</p>
+
+<p><b>Responsive:</b> nếu dùng px dễ lệch → nên dùng %, flex, grid</p>
+</div>
+
+<div class="box">
+<h2>Câu 2: Domain - Hosting - DNS</h2>
+
+<p><b>Quy trình:</b></p>
+<ul>
+<li>Mua domain</li>
+<li>Thuê hosting</li>
+<li>Cấu hình DNS</li>
+<li>Upload code</li>
+</ul>
+
+<p><b>DNS:</b> chuyển domain → IP server</p>
+
+<p><b>Công cụ:</b></p>
+<ul>
+<li>GitHub Pages</li>
+<li>Netlify</li>
+</ul>
+
+<p><b>Rủi ro:</b> không HTTPS, sai DNS, lộ dữ liệu</p>
+</div>
+
+<div class="box">
+<h2>Câu 3: let, var, const</h2>
+
+<table>
+<tr><th>Loại</th><th>Scope</th><th>Hoisting</th></tr>
+<tr><td>var</td><td>function</td><td>có</td></tr>
+<tr><td>let</td><td>block</td><td>không</td></tr>
+<tr><td>const</td><td>block</td><td>không</td></tr>
+</table>
+
+<p><b>Lỗi:</b></p>
+<code>
+console.log(a);
+let a = 10;
+</code>
+
+<p><b>Debug:</b> F12 → Console</p>
+</div>
+
+<div class="box">
+<h2>Câu 4: Event Delegation</h2>
+
+<p><b>Khái niệm:</b> gán sự kiện cho phần tử cha</p>
+
+<code>
+document.getElementById("list").addEventListener("click", function(e){
+ if(e.target.tagName === "LI"){
+  alert(e.target.innerText);
+ }
+});
+</code>
+
+<p><b>Lợi ích:</b> tối ưu hiệu năng, code gọn</p>
+</div>
+
+</body>
+</html>
