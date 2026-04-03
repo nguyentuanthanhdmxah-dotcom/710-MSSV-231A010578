@@ -14,6 +14,11 @@ input, button {
   margin:5px 0;
   padding:8px;
 }
+#msg {
+  margin-top:10px;
+  color: green;
+  font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -28,28 +33,33 @@ input, button {
 <button>Đăng ký</button>
 </form>
 
+<div id="msg"></div>
+
 <script>
 f.onsubmit = e=>{
  e.preventDefault();
 
- let email = email.value.trim();
- let pass = pass.value;
+ let emailVal = email.value.trim();
+ let passVal = pass.value;
 
  let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
- if(!regex.test(email)) return alert("Email không hợp lệ");
+ if(!regex.test(emailVal)) return alert("Email không hợp lệ");
 
- if(pass.length<8) return alert("Mật khẩu phải >= 8 ký tự");
+ if(passVal.length < 8) return alert("Mật khẩu phải >= 8 ký tự");
 
  if(!agree.checked) return alert("Phải đồng ý điều khoản");
 
- localStorage.setItem("user", JSON.stringify({email}));
+ // lưu dữ liệu
+ localStorage.setItem("user", JSON.stringify({email: emailVal}));
 
- alert("Đăng ký thành công");
+ // hiện thông báo trên web
+ document.getElementById("msg").innerText = "Đăng ký thành công!";
+
+ // reset form
+ f.reset();
 }
 </script>
-
-<p><b>Giải thích:</b> dùng regex kiểm tra email, preventDefault tránh reload, localStorage lưu dữ liệu.</p>
 
 </body>
 </html>
